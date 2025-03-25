@@ -57,8 +57,7 @@ class FollowViewSet(mixins.CreateModelMixin,
 
     def get_queryset(self):
         """Возвращает все подписки пользователя, сделавшего запрос"""
-        new_queryset = Follow.objects.filter(user=self.request.user)
-        return new_queryset
+        return self.request.user.follower.all()
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
